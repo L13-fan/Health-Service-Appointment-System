@@ -3,9 +3,9 @@ class Surgeon extends MedicalStaff{
 
     public Surgeon(String name, int staffId, String phone, String department, 
         int yearsOfExperience, String title, double registrationFee, String introduction,
-        String specialty){
+        String[] workingdays, String specialty){
         super(name, staffId, phone, department, yearsOfExperience, title, registrationFee, 
-            introduction);
+            introduction,workingdays);
         this.specialty = specialty;
     }        
 

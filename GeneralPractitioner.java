@@ -1,8 +1,9 @@
 class GeneralPractitioner extends MedicalStaff{
     public GeneralPractitioner(String name, int staffId, String phone, String department, 
-        int yearsOfExperience, String title, double registrationFee, String introduction){
+        int yearsOfExperience, String title, double registrationFee, String introduction,
+        String[] workingDays){
         super(name, staffId, phone, department, yearsOfExperience, title, registrationFee, 
-            introduction);
+            introduction,workingDays);
 
     }
 

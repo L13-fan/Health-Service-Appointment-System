@@ -3,9 +3,9 @@ class Dentist extends MedicalStaff{
 
     public Dentist(String name, int staffId, String phone, String department, 
         int yearsOfExperience, String title, double registrationFee, String introduction,
-        String treatmentTypes){
+        String[] workingDays, String treatmentTypes){
         super(name, staffId, phone, department, yearsOfExperience, title, registrationFee, 
-            introduction);
+            introduction,workingDays);
         this.treatmentTypes = treatmentTypes;
     }        
 

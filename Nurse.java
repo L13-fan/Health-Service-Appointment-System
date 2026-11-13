@@ -3,9 +3,9 @@ class Nurse extends MedicalStaff{
 
     public Nurse(String name, int staffId, String phone, String department, 
         int yearsOfExperience, String title, double registrationFee, String introduction,
-        String nursingSpecialty){
+        String[] workingdays, String nursingSpecialty){
         super(name, staffId, phone, department, yearsOfExperience, title, registrationFee, 
-            introduction);
+            introduction,workingdays);
         this.nursingSpecialty = nursingSpecialty;
     }
     
