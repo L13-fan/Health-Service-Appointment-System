@@ -16,6 +16,7 @@ abstract class MedicalStaff{
     private String introduction;
     private String[] workingDays;
 
+    // This is an abstract method. The specific implementation is implemented by the staff subclass.
     public abstract void provideService();
     
     /**
@@ -88,6 +89,7 @@ abstract class MedicalStaff{
         return workingDays.clone();
     }
 
+    // The toString() method converts the information of the staff object into a string, including the basic information of the staff and the weekly working days.
     @Override
     public String toString(){
         return String.format("Name: %s\nStaff Id: %d\nPhone: %s\nDepartment: %s\nYear of Experience: %d\nTitle: %s\nRegistration Fee: %.2f\nPersonal Introduction: %s\nWorking Days: %s", name, staffId, phone, department, yearsOfExperience, title, registrationFee, introduction, String.join(", ", workingDays));
