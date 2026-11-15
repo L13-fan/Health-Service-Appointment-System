@@ -39,7 +39,7 @@ public class StaffTest {
         Appointment patient2 = new Appointment(
         "Lucy",
         "13800005678",
-        LocalDateTime.of(2026, 11, 13, 14, 45),
+        LocalDateTime.of(2026, 11, 13, 9, 0),
         staffs[0]
         );
 
@@ -101,9 +101,13 @@ public class StaffTest {
         System.out.println("Please enter the mobile phone number you wish to inquire about: ");
         String phone = input.nextLine();
         ArrayList<Appointment> results = manager.findAppointmentsByPatientPhone(phone);
-        for (Appointment appointment : results){
+        if (results.size() == 0){
+            System.out.println("No appointments found!");
+        } else {
+            for (Appointment appointment : results){
             System.out.println(appointment);
         }
+        }   
 
         System.out.println(" ");
         System.out.println("用预约医生的ID查询预约详情：");
@@ -111,16 +115,21 @@ public class StaffTest {
         int staffId = input.nextInt();
         input.nextLine();
         ArrayList<Appointment> staffResults = manager.findAppointmentsByStaffId(staffId);
-        for (Appointment appointment : staffResults){
+        if (staffResults.size() == 0){
+            System.out.println("No appointment found!");
+        } else {
+            for (Appointment appointment : staffResults){
             System.out.println(appointment);
         }
+        }
+        
 
         System.out.println(" ");
         System.out.println("取消预约：");
         System.out.println("Please enter the patient's phone :");
         String patientphone = input.nextLine();
         
-        System.out.println("Please enter appointment time (yyyy-MM-dd HH:mm):");
+        System.out.println("Please enter appointment time (yyyy-MM-ddTHH:mm):");
         String timeInput = input.nextLine();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
         LocalDateTime targetTime = LocalDateTime.parse(timeInput, formatter);
@@ -130,6 +139,12 @@ public class StaffTest {
             System.out.println("Total appointments: " + manager.getAppointmentCount());
         } else {
             System.out.println("Appointment not found!");
+        }
+
+        
+        LocalDateTime bookTime = LocalDateTime.parse(input.nextLine());
+        for (MedicalStaff staff : staffs){
+            System.out.println(manager.isTimeBooked(staff, bookTime));
         }
     }
 }

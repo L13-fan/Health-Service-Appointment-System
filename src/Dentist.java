@@ -21,7 +21,7 @@ class Dentist extends MedicalStaff{
      * @param registrationFee the registration fee of dentist
      * @param introduction the personal introduction of the staff
      * @param workingDays the working days of the dentist per week
-     * @param treatmentType types of dental treatments
+     * @param treatmentTypes types of dental treatments
      */
     public Dentist(String name, int staffId, String phone, String department, 
         int yearsOfExperience, String title, double registrationFee, String introduction,

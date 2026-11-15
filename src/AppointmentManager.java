@@ -1,6 +1,5 @@
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.Iterator;
 
 public class AppointmentManager {
@@ -8,12 +7,17 @@ public class AppointmentManager {
 
     public boolean addAppointment(Appointment appointment){
         if (isValidAppointmentTime(appointment.getAppointmentTime())){
-            if (hasConflict(appointment)){
-                return false;
+            if (isWorkingDay(appointment)){
+                if (hasConflict(appointment)){
+                    return false;
+                } else {
+                    appointments.add(appointment);
+                    return true;
+                }
             } else {
-                appointments.add(appointment);
-                return true;
+                return false;
             }
+            
         } else {
             return false;
         }
@@ -45,12 +49,15 @@ public class AppointmentManager {
     }
 
     public void sortAppointmentsByTime(){
-        appointments.sort(new Comparator<Appointment>(){
-            @Override
-            public int compare(Appointment a, Appointment b){
-                return a.getAppointmentTime().compareTo(b.getAppointmentTime());
+        for (int j = 0; j < appointments.size()-1; j++){
+            for (int i = 0; i<appointments.size()-1-j; i++) {
+                if (appointments.get(i).getAppointmentTime().isAfter(appointments.get(i+1).getAppointmentTime())){
+                    Appointment temp = appointments.get(i); 
+                    appointments.set(i, appointments.get(i+1));
+                    appointments.set(i+1, temp);
+                }
             }
-        });
+        }
     }
 
     public boolean cancelAppointment(String phone, LocalDateTime targetTime){
@@ -86,8 +93,22 @@ public class AppointmentManager {
             16,
             0
         );
+        LocalDateTime now = LocalDateTime.now();
         return (time.isBefore(endTime) || time.equals(endTime)) && (time.getHour() >= 8) &&
-        (time.getMinute() == 0 || time.getMinute() == 30);
+        (time.getMinute() == 0 || time.getMinute() == 30) && time.isAfter(now) && time.toLocalDate().equals(now.toLocalDate());
+    }
+
+    public boolean isWorkingDay(Appointment appointment){
+        String[] workingDays;
+        LocalDateTime appointmentTime;
+        workingDays = appointment.getMedicalStaff().getWorkingDays();
+        appointmentTime = appointment.getAppointmentTime();
+        for (String workingDay : workingDays){
+            if (appointmentTime.getDayOfWeek().toString().equalsIgnoreCase(workingDay)){
+                return true;
+            }    
+        }
+        return false;
     }
 
     public void displayAppointments(){
@@ -96,4 +117,21 @@ public class AppointmentManager {
             System.out.println(" ");
         }
     }
+
+    // 传入工作人员对象和要预约的时间，他从预约里有的找
+    public boolean isTimeBooked(MedicalStaff medicalStaff, LocalDateTime bookTime){
+        for (Appointment appointment : appointments){
+            if ((appointment.getAppointmentTime().equals(bookTime)) && (medicalStaff.getStaffId()== appointment.getMedicalStaff().getStaffId())){
+                return true;
+            }
+        }
+        return false;
+    }
 }
+
+//LocalDateTime startTime = LocalDateTime.of(2026, 11, 14, 8, 0);
+//for (int i = 0; i < 17; i++){
+    //System.out.println(startTime);
+    //startTime = startTime.plusMinutes(30);
+//}
+
