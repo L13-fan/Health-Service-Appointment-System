@@ -8,13 +8,13 @@ class GeneralPractitioner extends MedicalStaff{
     
     /**
      * Initialize the inherited attributes from the parent class using nine parameters.
-     * @param name the name of the general practitioner member
+     * @param name the name of the general practitioner 
      * @param staffId the staff member's ID
      * @param phone the staff member's contact number
      * @param department the department where the staff member works
      * @param yearsOfExperience the number of years of experience of the staff
      * @param title the title of general practitioner
-     * @param registrationFee the registration fee of general practitoner
+     * @param registrationFee the registration fee of general practitioner
      * @param introduction the personal introduction of the staff
      * @param workingDays what is saved is the working days of the staff during a week.
      */
@@ -24,6 +24,12 @@ class GeneralPractitioner extends MedicalStaff{
         super(name, staffId, phone, department, yearsOfExperience, title, registrationFee, 
             introduction,workingDays);
 
+    }
+
+    // Rewrite the toString() method so that it not only displays the relevant information of the general practitioner, but also shows the type of staff member.
+    @Override
+    public String toString(){
+        return super.toString() + "\nStaff Type: General Practitioner";
     }
 
     // This method overrides the abstract method of the parent class and demonstrates two services provided by general practitioners: general medical consultations and basic health assessments.

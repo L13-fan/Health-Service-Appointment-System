@@ -11,28 +11,38 @@ class Surgeon extends MedicalStaff{
     /**
      * The first nine parameters are used to initialize the attributes of the parent class.
      * The last parameter is used to initialize the attributes of Surgeon itself.
-     * @param name the name of the surgeon member
+     * Verify the surgeon's specialty and ensure that the specialty is not empty or null. Throw IllegalArgumentException if any argument is invalid.
+     * @param name the name of the surgeon
      * @param staffId the staff member's ID
      * @param phone the staff member's contact number
      * @param department the department where the staff member works
      * @param yearsOfExperience the number of years of experience of the staff
-     * @param title the title of surgeon
-     * @param registrationFee the registration fee of surgeon
+     * @param title the surgeon's professional title
+     * @param registrationFee the surgeon's registration fee
      * @param introduction the personal introduction of the staff
      * @param workingDays the working days of the surgeon per week
-     * @param specialty the professional field of a surgeon
+     * @param specialty the surgeon's area of expertise
      */
     public Surgeon(String name, int staffId, String phone, String department, 
         int yearsOfExperience, String title, double registrationFee, String introduction,
         String[] workingDays, String specialty){
         super(name, staffId, phone, department, yearsOfExperience, title, registrationFee, 
             introduction,workingDays);
+        if (specialty == null || specialty.isEmpty()){
+             throw new IllegalArgumentException("Specialty cannot be empty.");
+        }
         this.specialty = specialty;
     }        
 
     // Return the surgeon's area of expertise
     public String getSpecialty(){
         return specialty;
+    }
+
+    // Rewrite the toString() method so that it not only displays the relevant information of the surgeon, but also shows his area of expertise.
+    @Override
+    public String toString(){
+        return super.toString() + String.format("\nspecialty: %s", specialty);
     }
 
     // Display the surgical services provided by the surgeons

@@ -12,7 +12,8 @@ class Dentist extends MedicalStaff{
     /**
      * The first nine parameters are used to initialize the attributes of the parent class.
      * The last treatmentTypes parameter is used to initialize the attributes of the dentist itself.
-     * @param name the name of the dentist member
+     * Verify the dentist's treatmentTypes and ensure that the treatmentTypes is not empty or null. Throw IllegalArgumentException if any argument is invalid.
+     * @param name the name of the dentist 
      * @param staffId the staff member's ID
      * @param phone the staff member's contact number
      * @param department the department where the staff member works
@@ -21,13 +22,16 @@ class Dentist extends MedicalStaff{
      * @param registrationFee the registration fee of dentist
      * @param introduction the personal introduction of the staff
      * @param workingDays the working days of the dentist per week
-     * @param treatmentTypes types of dental treatments
+     * @param treatmentTypes the dentist's treatments types
      */
     public Dentist(String name, int staffId, String phone, String department, 
         int yearsOfExperience, String title, double registrationFee, String introduction,
         String[] workingDays, String treatmentTypes){
         super(name, staffId, phone, department, yearsOfExperience, title, registrationFee, 
             introduction,workingDays);
+        if (treatmentTypes == null || treatmentTypes.isEmpty()){
+             throw new IllegalArgumentException("TreatmentTpyes cannot be empty.");
+        }
         this.treatmentTypes = treatmentTypes;
     }        
 
@@ -36,9 +40,15 @@ class Dentist extends MedicalStaff{
         return treatmentTypes;
     }
 
+    // Rewrite the toString() method so that it not only displays the relevant information of the dentist, but also shows the dental treatments provided by the dentist.
+    @Override
+    public String toString(){
+        return super.toString() + String.format("\nTreatment types: %s", treatmentTypes);
+    }
+
     // Display the treatmentTypes services provided by the dentist
     @Override
     public void provideService(){
-        System.out.println("We offer teeth cleaning, Filling.");
+        System.out.println(treatmentTypes);
     }
 }

@@ -1,7 +1,7 @@
 /**
  * @author Yifan Liu
  * number: 25259081
- * This is a represents of nurse. It is a subclass that inherits from MedicalStaff.
+ * This is a representation of nurse. It is a subclass that inherits from MedicalStaff.
  * It not only initializes the inherited attributes from the parent class using nine parameters, but also adds an exclusive attribute: nursingSpecialty.
  */
 class Nurse extends MedicalStaff{
@@ -11,6 +11,7 @@ class Nurse extends MedicalStaff{
     /**
      * The first nine parameters are used to initialize the attributes of the parent class.
      * The last parameter initializes the nursingSpecialty attribute of the Nurse object itself.
+     * Verify the nurse's nursing specialty and ensure that the nursing specialty is not empty or null. Throw IllegalArgumentException if any argument is invalid.
      * @param name the name of the nurse 
      * @param staffId the staff member's ID
      * @param phone the staff member's contact number
@@ -27,12 +28,21 @@ class Nurse extends MedicalStaff{
         String[] workingDays, String nursingSpecialty){
         super(name, staffId, phone, department, yearsOfExperience, title, registrationFee, 
             introduction,workingDays);
+        if (nursingSpecialty == null || nursingSpecialty.isEmpty()){
+             throw new IllegalArgumentException("Nursing specialty cannot be empty.");
+        }
         this.nursingSpecialty = nursingSpecialty;
     }
     
     // Return the professional field of nursing.
     public String getNursingSpecialty(){
         return nursingSpecialty;
+    }
+
+    // Rewrite the toString() method so that it not only displays the relevant information of the nurse, but also shows his nursing specialty.
+    @Override
+    public String toString(){
+        return super.toString() + String.format("\nNursing specialty: %s", nursingSpecialty);
     }
 
     // Display the nursing services provided by the nurses.

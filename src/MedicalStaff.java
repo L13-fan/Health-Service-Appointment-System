@@ -21,6 +21,9 @@ abstract class MedicalStaff{
     
     /**
      * Constructs a MedicalStaff object with the specified name, staffId, phone, department, yearsOfExperience, title, registrationFee, introduction, workingDays.
+     * Verify the staff member's name and ensure that the name is not empty or null. Throw IllegalArgumentException if any argument is invalid.
+     * Verify whether the staff ID and ensure it is greater than 0. Throw IllegalArgumentException if any argument is invalid.
+     * Verification of the working day array to Ensure the working days array is not null or empty.Throw IllegalArgumentException if any argument is invalid.
      * @param name the name of the medical staff member
      * @param staffId the staff member's ID
      * @param phone the staff member's contact number
@@ -33,6 +36,15 @@ abstract class MedicalStaff{
      */
     public MedicalStaff(String name, int staffId, String phone, String department, int yearsOfExperience, 
         String title, double registrationFee, String introduction,String[] workingDays){
+        if (name == null || name.isEmpty()){
+            throw new IllegalArgumentException("Name cannot be empty.");
+        }
+        if (staffId <= 0){
+            throw new IllegalArgumentException("Staff ID must be positive.");
+        }
+        if (workingDays == null || workingDays.length == 0){
+            throw new IllegalArgumentException("Working days cannot be empty.");
+        }
         this.name = name;
         this.staffId = staffId;
         this.phone = phone;
