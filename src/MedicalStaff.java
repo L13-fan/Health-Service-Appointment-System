@@ -101,6 +101,18 @@ abstract class MedicalStaff{
         return workingDays.clone();
     }
 
+    @Override
+    public boolean equals(Object object){
+        if (this == object){
+            return true;
+        }
+        if (!(object instanceof  MedicalStaff)){
+            return false;
+        }
+        MedicalStaff other = (MedicalStaff) object;
+        return this.staffId == other.staffId;
+    }
+
     // The toString() method converts the information of the staff object into a string, including the basic information of the staff and the weekly working days.
     @Override
     public String toString(){
