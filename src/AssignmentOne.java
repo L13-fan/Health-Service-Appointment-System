@@ -41,7 +41,8 @@ public class AssignmentOne {
                                 "3. Search appointments\n" + //
                                 "4. Sort appointments\n" + //
                                 "5. Cancel an appointment\n" + //
-                                "6. Exit\n" + //
+                                "6. Check available time slots\n" + //
+                                "7. Exit\n" + //
                                 "\n" + //
                                 "Please enter your choice:");
             int choice;
@@ -163,6 +164,8 @@ public class AssignmentOne {
                     System.out.println("Invalid cancellation option.");
                 }
             } else if (choice == 6){
+                checkAvailableTimeSlots(staffs, manager, input);
+            } else if (choice == 7){
                 return;
             } else {
                 System.out.println("Invalid choice. Please try again.");
@@ -237,5 +240,36 @@ public class AssignmentOne {
             manager.displayAppointments();
 
     
+    }
+
+    public static void checkAvailableTimeSlots(MedicalStaff[] staffs, AppointmentManager manager, Scanner input) {
+        // 展示医生ID和姓名
+        for (MedicalStaff staff : staffs){
+            System.out.println(staff.getStaffId() + " - " + staff.getName());
+        }
+
+        System.out.println("请输入医生ID");
+        int staffId;
+        if (input.hasNextInt()){
+            staffId = input.nextInt();
+        } else{
+            input.nextLine();
+            System.out.println("请输入有效的医生ID.");
+            return;
+        }
+        input.nextLine();
+
+        MedicalStaff selectedStaff = null;
+        for (MedicalStaff staff : staffs){
+            if (staff.getStaffId() == staffId){
+                selectedStaff = staff;
+                
+            }
+        }
+        if (selectedStaff == null){
+            System.out.println("ID不存在");
+            return;
+        }
+        manager.displayAvailableTimeSlots(selectedStaff);
     }
 }

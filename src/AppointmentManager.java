@@ -122,6 +122,7 @@ public class AppointmentManager {
         (time.getMinute() == 0 || time.getMinute() == 30) && time.isAfter(now) && time.toLocalDate().equals(now.toLocalDate());
     }
 
+    // 预约使用
     public boolean isWorkingDay(Appointment appointment){
         String[] workingDays;
         LocalDateTime appointmentTime;
@@ -147,12 +148,49 @@ public class AppointmentManager {
     }
 
     // 传入工作人员对象和要预约的时间，他从预约里有的找
+    // ture已经被预约，false没有被预约
     public boolean isTimeBooked(MedicalStaff medicalStaff, LocalDateTime bookTime){
         
         for (Appointment appointment : appointments){
             if ((appointment.getAppointmentTime().equals(bookTime)) && (medicalStaff.getStaffId()== appointment.getMedicalStaff().getStaffId())){
                 return true;
             }
+        }
+        return false;
+    }
+
+    // 查询医生可以预约的时间点
+    public void displayAvailableTimeSlots(MedicalStaff medicalStaff){
+        LocalDateTime now = LocalDateTime.now();
+        LocalDateTime firstTime = LocalDateTime.of(now.getYear(),now.getMonthValue(),now.getDayOfMonth(), 8,0);
+        boolean hasAvailableSlot = false;
+        if (isWorkingDay(medicalStaff)){
+            for (int i = 0; i < 17; i++){
+                if ((! isTimeBooked(medicalStaff, firstTime)) && (firstTime.isAfter(now))){
+                    System.out.println(firstTime);
+                    hasAvailableSlot = true;
+                }
+                firstTime = firstTime.plusMinutes(30);
+            }
+            if (!hasAvailableSlot){
+                System.out.println("该医生已无可预约时间段，请选择其他医生进行预约。");
+            }
+        } else {
+            System.out.println("该医生今天不工作。请选择其他医生进行预约。");
+        }
+    }
+    
+    // 供查询医生可预约时间用
+    // true代表可预约
+    public boolean isWorkingDay(MedicalStaff medicalStaff){
+        String[] workingDays;
+        LocalDateTime now = LocalDateTime.now();
+        workingDays = medicalStaff.getWorkingDays();
+        
+        for (String workingDay : workingDays){
+            if (now.getDayOfWeek().toString().equalsIgnoreCase(workingDay)){
+                return true;
+            }    
         }
         return false;
     }
