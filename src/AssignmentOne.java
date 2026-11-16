@@ -47,16 +47,15 @@ public class AssignmentOne {
             int choice = input.nextInt();
             
             input.nextLine();
-            System.out.println("Your choice is: " + choice);
             if (choice == 1){
                  // 调用bookAppointment方法
                 bookAppointment(staffs, manager, input);
-                System.out.println("\n[Returned to main menu]");
+                
             } else if (choice == 2) {
                     manager.displayAppointments();
             } else if (choice == 3){
                 System.out.println("请选择怎样查询预约信息：");
-                System.out.print("用手机号查询请输入1，用工作人员ID查询请输入2");
+                System.out.print("用手机号查询请输入1，用工作人员ID查询请输入2:");
                 int searchChoice = input.nextInt();
                 ArrayList<Appointment> results;
                 if (searchChoice == 1){
@@ -66,6 +65,7 @@ public class AssignmentOne {
                     if (results.isEmpty()){
                         System.out.println("No appointment found.");
                     } else {
+                        manager.sortAppointmentsByTime(results);
                         for (Appointment result : results){
                             System.out.println(result);
                         }
@@ -78,6 +78,7 @@ public class AssignmentOne {
                     if (results.isEmpty()){
                         System.out.println("No appointment found.");
                     } else {
+                        manager.sortAppointmentsByTime(results);
                         for (Appointment result : results){
                             System.out.println(result);
                         }
@@ -98,7 +99,7 @@ public class AssignmentOne {
                 int cancelChoice = input.nextInt();
                 input.nextLine();
                 if (cancelChoice == 1){
-                    System.out.print("\n请输入患者手机号");
+                    System.out.print("\n请输入患者手机号:");
                     String cancelPhone = input.nextLine();
                     System.out.print("\n请输入预约时间：");
                     String targetTime = input.nextLine();
@@ -110,7 +111,7 @@ public class AssignmentOne {
                         System.out.println("取消失败");
                     }
                 } else if (cancelChoice == 2){
-                    System.out.print("\n请输入医生ID");
+                    System.out.print("\n请输入医生ID:");
                     int cancelStaffID = input.nextInt();
                     input.nextLine();
                     System.out.print("\n请输入预约时间：");

@@ -50,7 +50,7 @@ public class AppointmentManager {
         }
         return results;
     }
-
+    // 排序全部预约
     public void sortAppointmentsByTime(){
         for (int j = 0; j < appointments.size()-1; j++){
             for (int i = 0; i<appointments.size()-1-j; i++) {
@@ -58,6 +58,18 @@ public class AppointmentManager {
                     Appointment temp = appointments.get(i); 
                     appointments.set(i, appointments.get(i+1));
                     appointments.set(i+1, temp);
+                }
+            }
+        }
+    }
+    // 排序指定组合
+    public void sortAppointmentsByTime(ArrayList<Appointment> targetAppointments){
+        for (int i = 0; i < targetAppointments.size() - 1; i ++){
+            for (int j = 0; j < targetAppointments.size() -1 - i; j++){
+                if (targetAppointments.get(j).getAppointmentTime().isAfter(targetAppointments.get(j+1).getAppointmentTime())){
+                    Appointment temp = targetAppointments.get(j);
+                    targetAppointments.set(j,targetAppointments.get(j+1));
+                    targetAppointments.set(j+1,temp);
                 }
             }
         }
