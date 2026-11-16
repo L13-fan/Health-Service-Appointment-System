@@ -44,8 +44,14 @@ public class AssignmentOne {
                                 "6. Exit\n" + //
                                 "\n" + //
                                 "Please enter your choice:");
-            int choice = input.nextInt();
-            
+            int choice;
+            if (input.hasNextInt()){
+                choice = input.nextInt();
+            } else {
+                input.nextLine();
+                System.out.println("请输入数字：");
+                continue;
+            }
             input.nextLine();
             if (choice == 1){
                  // 调用bookAppointment方法
@@ -56,7 +62,15 @@ public class AssignmentOne {
             } else if (choice == 3){
                 System.out.println("请选择怎样查询预约信息：");
                 System.out.print("用手机号查询请输入1，用工作人员ID查询请输入2:");
-                int searchChoice = input.nextInt();
+                int searchChoice;
+                if (input.hasNextInt()){
+                    searchChoice = input.nextInt();
+                } else {
+                    input.nextLine();
+                    System.out.println("请输入数字：");
+                    continue;
+                }
+                input.nextLine();
                 ArrayList<Appointment> results;
                 if (searchChoice == 1){
                     System.out.print("Enter patient phone: ");
@@ -73,7 +87,15 @@ public class AssignmentOne {
 
                 } else if (searchChoice == 2){
                     System.out.print("Enter medical staff ID: ");
-                    int staffId = input.nextInt();
+                    int staffId;
+                    if (input.hasNextInt()){
+                        staffId = input.nextInt();
+                    } else {
+                        input.nextLine();
+                        System.out.println("请输入数字：");
+                        continue;
+                    }
+                    input.nextLine();
                     results = manager.findAppointmentsByStaffId(staffId);
                     if (results.isEmpty()){
                         System.out.println("No appointment found.");
@@ -96,7 +118,14 @@ public class AssignmentOne {
                                         "1. Cancel by patient phone and appointment time\n" + //
                                         "2. Cancel by medical staff ID and appointment time");
                 System.out.println("Pealse enter your choice: ");
-                int cancelChoice = input.nextInt();
+                int cancelChoice;
+                if (input.hasNextInt()){
+                    cancelChoice = input.nextInt();
+                } else {
+                    input.nextLine();
+                    System.out.println("请输入数字：");
+                    continue;
+                }
                 input.nextLine();
                 if (cancelChoice == 1){
                     System.out.print("\n请输入患者手机号:");
@@ -112,7 +141,14 @@ public class AssignmentOne {
                     }
                 } else if (cancelChoice == 2){
                     System.out.print("\n请输入医生ID:");
-                    int cancelStaffID = input.nextInt();
+                    int cancelStaffID;
+                    if (input.hasNextInt()){
+                        cancelStaffID = input.nextInt();
+                    } else {
+                        input.nextLine();
+                        System.out.println("请输入数字");
+                        continue;
+                    }
                     input.nextLine();
                     System.out.print("\n请输入预约时间：");
                     String targetTime = input.nextLine();
@@ -124,7 +160,7 @@ public class AssignmentOne {
                         System.out.println("预约取消失败");
                     }
                 } else {
-                    System.out.println("Invalid search option.");
+                    System.out.println("Invalid cancellation option.");
                 }
             } else if (choice == 6){
                 return;
@@ -151,7 +187,14 @@ public class AssignmentOne {
                 System.out.println(staff.getStaffId() + " - " + staff.getName());
             }
             System.out.print("\nEnter medical staff ID: ");
-            int staffId = input.nextInt();
+            int staffId;
+            if (input.hasNextInt()){
+                staffId = input.nextInt();
+            } else {
+                input.nextLine();
+                System.out.println("请输入数字：");
+                return;
+            }
             input.nextLine();
             MedicalStaff selectedStaff = null;
             for (MedicalStaff staff : staffs){
