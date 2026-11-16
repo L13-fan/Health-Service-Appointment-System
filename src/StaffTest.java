@@ -24,11 +24,15 @@ public class StaffTest {
 
         new Nurse("Sarah Zhang", 1004, "+86 13800001004", "Nursing", 5,
         "Registered Nurse", 30.0, "Provides nursing care and patient health monitoring.", 
-        new String[]{"Wednesday", "Thursday","Friday","Saturday"}, "Emergency Nursing")
+        new String[]{"Wednesday", "Thursday","Friday","Saturday"}, "Emergency Nursing"),
+        new GeneralPractitioner("b", 1005, "12345678910", "Gengeral", 1, "buzhidao", 20.00, "wokuaifansikl",new String[]{"Monday","Wednesday","Friday"})
         };
+
+        System.out.println(staffs[0].equals(staffs[4]));
 
         for (MedicalStaff staff: staffs){
             System.out.println(staff);
+            staff.provideService();
             System.out.println(" ");
         }
 

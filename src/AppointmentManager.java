@@ -110,6 +110,9 @@ public class AppointmentManager {
     }
 
     public boolean isValidAppointmentTime(LocalDateTime time){
+        if (time == null) {
+            return false;
+        }
         LocalDateTime endTime = LocalDateTime.of(
             time.getYear(), 
             time.getMonth(),
@@ -119,7 +122,8 @@ public class AppointmentManager {
         );
         LocalDateTime now = LocalDateTime.now();
         return (time.isBefore(endTime) || time.equals(endTime)) && (time.getHour() >= 8) &&
-        (time.getMinute() == 0 || time.getMinute() == 30) && time.isAfter(now) && time.toLocalDate().equals(now.toLocalDate());
+        (time.getMinute() == 0 || time.getMinute() == 30) && time.isAfter(now) && time.toLocalDate().equals(now.toLocalDate()) 
+        && time.getSecond() == 0 && time.getNano() == 0;
     }
 
     // 预约使用
@@ -195,10 +199,3 @@ public class AppointmentManager {
         return false;
     }
 }
-
-//LocalDateTime startTime = LocalDateTime.of(2026, 11, 14, 8, 0);
-//for (int i = 0; i < 17; i++){
-    //System.out.println(startTime);
-    //startTime = startTime.plusMinutes(30);
-//}
-

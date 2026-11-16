@@ -1,4 +1,5 @@
 import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -74,8 +75,7 @@ public class AssignmentOne {
                 input.nextLine();
                 ArrayList<Appointment> results;
                 if (searchChoice == 1){
-                    System.out.print("Enter patient phone: ");
-                    String phone = input.next();
+                    String phone = readPatientPhone(input);
                     results = manager.findAppointmentsByPatientPhone(phone);
                     if (results.isEmpty()){
                         System.out.println("No appointment found.");
@@ -129,11 +129,8 @@ public class AssignmentOne {
                 }
                 input.nextLine();
                 if (cancelChoice == 1){
-                    System.out.print("\n请输入患者手机号:");
-                    String cancelPhone = input.nextLine();
-                    System.out.print("\n请输入预约时间：");
-                    String targetTime = input.nextLine();
-                    LocalDateTime appointmentTime = LocalDateTime.parse(targetTime);
+                    String cancelPhone = readPatientPhone(input);
+                    LocalDateTime appointmentTime = readAppointmentTime(input);
                     boolean cancelResult = manager.cancelAppointment(cancelPhone, appointmentTime);
                     if (cancelResult){
                         System.out.println("取消成功");
@@ -151,9 +148,7 @@ public class AssignmentOne {
                         continue;
                     }
                     input.nextLine();
-                    System.out.print("\n请输入预约时间：");
-                    String targetTime = input.nextLine();
-                    LocalDateTime appointmentTime = LocalDateTime.parse(targetTime);
+                    LocalDateTime appointmentTime = readAppointmentTime(input);
                     boolean cancelResult = manager.cancelAppointment(cancelStaffID, appointmentTime);
                     if (cancelResult){
                         System.out.println("预约取消成功");
@@ -181,17 +176,13 @@ public class AssignmentOne {
             // 让患者自己输入信息
             System.out.print("\nEnter patient name: ");
             String patientName = input.nextLine();
-            System.out.print("\nEnter patient phone: ");
-            String patientPhone = input.nextLine();
-            
-            while (true){
-                if (patientPhone.length() != 11){
-                    System.out.println("手机号必须位11位，请重新输入手机号");
-                    patientPhone = input.nextLine();
-                } else {
-                    break;
-                }
+
+            while (patientName.trim().isEmpty()) {
+                System.out.println("Patient name cannot be empty. Please enter again:");
+                patientName = input.nextLine();
             }
+            String patientPhone = readPatientPhone(input);
+
 
             // 让患者选择工作人员
             System.out.println("\nSelect a medical staff by entering their ID: ");
@@ -220,14 +211,24 @@ public class AssignmentOne {
                 return;
             }
             // 输入预约时间
-            System.out.println("Appointment booking rules:\n" + //
+            LocalDateTime appointmentTime = null;
+            while (true) { 
+                System.out.println("Appointment booking rules:\n" + //
                                 "- Appointments are available for the current day only.\n" + //
                                 "- Available time slots are from 08:00 to 16:00, at 30-minute intervals.\n" + //
                                 "- You can only book on the selected medical staff's working days.\n" + //
                                 "- The selected time must be in the future.");
-            System.out.print("Enter appointment time (yyyy-MM-ddTHH:mm): ");
-            String timeInput = input.nextLine();
-            LocalDateTime appointmentTime = LocalDateTime.parse(timeInput);
+                System.out.print("Enter appointment time (yyyy-MM-ddTHH:mm): ");
+                String timeInput = input.nextLine();
+                try {
+                    
+                    appointmentTime = LocalDateTime.parse(timeInput);
+                    break;
+            } catch (DateTimeParseException e){
+                System.out.println("Invalid date format. Please try again.");
+            }
+            
+            }                   
             
             // 添加预约，并判断能能成功预约
             Appointment patient = new Appointment(patientName,patientPhone,appointmentTime,selectedStaff);
@@ -240,6 +241,19 @@ public class AssignmentOne {
             manager.displayAppointments();
 
     
+    }
+
+    public static String readPatientPhone(Scanner input) {
+        while (true) {
+            System.out.print("Enter patient phone (11 digits): ");
+            String phone = input.nextLine();
+
+            if (phone.matches("\\d{11}")) {
+                return phone;
+            }
+
+            System.out.println("Phone number must contain exactly 11 digits. Please try again.");
+        }
     }
 
     public static void checkAvailableTimeSlots(MedicalStaff[] staffs, AppointmentManager manager, Scanner input) {
@@ -263,7 +277,7 @@ public class AssignmentOne {
         for (MedicalStaff staff : staffs){
             if (staff.getStaffId() == staffId){
                 selectedStaff = staff;
-                
+                break;
             }
         }
         if (selectedStaff == null){
@@ -271,5 +285,18 @@ public class AssignmentOne {
             return;
         }
         manager.displayAvailableTimeSlots(selectedStaff);
+    }
+
+    private static LocalDateTime readAppointmentTime(Scanner input) {
+        while (true) {
+            System.out.print("请输入预约时间（yyyy-MM-ddTHH:mm）：");
+            String targetTime = input.nextLine();
+
+            try {
+                return LocalDateTime.parse(targetTime);
+            } catch (DateTimeParseException e) {
+                System.out.println("日期格式错误，请按照 yyyy-MM-ddTHH:mm 重新输入。");
+            }
+        }
     }
 }
