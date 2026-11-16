@@ -42,7 +42,7 @@ class Nurse extends MedicalStaff{
     // Rewrite the toString() method so that it not only displays the relevant information of the nurse, but also shows his nursing specialty.
     @Override
     public String toString(){
-        return super.toString() + String.format("\nNursing specialty: %s", nursingSpecialty);
+        return super.toString() + "\nStaff Type: Nurse" + String.format("\nNursing specialty: %s", nursingSpecialty);
     }
 
     // Display the nursing services provided by the nurses.

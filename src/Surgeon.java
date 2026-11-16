@@ -42,7 +42,7 @@ class Surgeon extends MedicalStaff{
     // Rewrite the toString() method so that it not only displays the relevant information of the surgeon, but also shows his area of expertise.
     @Override
     public String toString(){
-        return super.toString() + String.format("\nspecialty: %s", specialty);
+        return super.toString() + "\nStaff Type: Surgeon" + String.format("\nSpecialty: %s", specialty);
     }
 
     // Display the surgical services provided by the surgeons

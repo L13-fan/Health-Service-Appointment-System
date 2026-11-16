@@ -43,7 +43,7 @@ class Dentist extends MedicalStaff{
     // Rewrite the toString() method so that it not only displays the relevant information of the dentist, but also shows the dental treatments provided by the dentist.
     @Override
     public String toString(){
-        return super.toString() + String.format("\nTreatment types: %s", treatmentTypes);
+        return super.toString() + "\nStaff Type: Dentist" + String.format("\nTreatment types: %s", treatmentTypes);
     }
 
     // Display the treatmentTypes services provided by the dentist

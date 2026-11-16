@@ -2,9 +2,12 @@
  * @author Yifan Liu  
  * number : 25259081
  * This is an abstract base class.
- * It mainly stores the common attributes of the doctors and provides constructors to initialize these attributes. The parent class provides a common implementation of the toString() method.
+ * It mainly stores the common attributes of the medical staff and provides constructors to initialize these attributes. The parent class provides a common implementation of the toString() method.
  * MedicalStaff is an abstract class because it provides the common attributes and behaviors shared by all staff members, while the specific services are implemented by the subclasses.
  */
+
+import java.util.Objects;
+
 abstract class MedicalStaff{
     private String name;
     private int staffId;
@@ -101,6 +104,7 @@ abstract class MedicalStaff{
         return workingDays.clone();
     }
 
+    // Determine whether two MedicalStaff objects are equal. The basis for the judgment is staffId, rather than name, phone number or any other attributes.
     @Override
     public boolean equals(Object object){
         if (this == object){
@@ -111,6 +115,12 @@ abstract class MedicalStaff{
         }
         MedicalStaff other = (MedicalStaff) object;
         return this.staffId == other.staffId;
+    }
+
+    // It is consistent with the equals() method: if the staffId of two objects is the same, their hash code will also be the same.
+    @Override
+    public int hashCode(){
+        return Objects.hash(staffId);
     }
 
     // The toString() method converts the information of the staff object into a string, including the basic information of the staff and the weekly working days.
