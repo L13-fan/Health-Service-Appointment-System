@@ -1,3 +1,5 @@
+import java.util.Objects;
+
 /**
  * @author Yifan Liu  
  * number : 25259081
@@ -5,9 +7,6 @@
  * It mainly stores the common attributes of the medical staff and provides constructors to initialize these attributes. The parent class provides a common implementation of the toString() method.
  * MedicalStaff is an abstract class because it provides the common attributes and behaviors shared by all staff members, while the specific services are implemented by the subclasses.
  */
-
-import java.util.Objects;
-
 abstract class MedicalStaff{
     private String name;
     private int staffId;

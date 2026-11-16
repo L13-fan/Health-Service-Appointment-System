@@ -22,18 +22,16 @@ public class AssignmentOne {
      * Program entry point.
      *
      * The steps are:
-     * 1. create the four medical staff members (polymorphism: a parent-class array holds
-     *    four subclass objects);
+     * 1. create the four medical staff members (polymorphism: a parent-class array holds four subclass objects);
      * 2. print each staff member and call that member's own provideService();
      * 3. create one AppointmentManager, which stores every appointment;
-     * 4. enter a while (true) menu loop: read a number, run the matching feature, print the
-     *    result, and then start another round;
+     * 4. enter a while (true) menu loop: read a number, run the matching feature, print the result, and then start another round;
      * 5. choosing 7 returns from main, which ends the program.
      *
      * @param args command line arguments (not used here)
      */
     public static void main(String[] args) {
-        /**
+        /* 
          *  ---------- 1. Create the four medical staff members ----------
          * MedicalStaff is the abstract parent class, while GeneralPractitioner, Surgeon,
          * Dentist and Nurse are the four subclasses. Putting subclass objects into an array
@@ -42,7 +40,7 @@ public class AssignmentOne {
          * The arguments follow the parent constructor:
          * name, ID, phone, department, years of experience, title, registration fee,
          * introduction, working days array.
-         * The subclasses take one extra personal field first, for example the Surgeon's
+         * The subclasses take one extra personal field last, for example the Surgeon's
          * "Orthopaedic Surgery" specialised area. 
         */
         MedicalStaff[] staffs = {
@@ -64,7 +62,7 @@ public class AssignmentOne {
         new String[]{"Wednesday", "Thursday","Friday","Saturday"}, "Emergency Nursing")
         };
 
-        /**
+        /*
          * 2. Print each staff member and demonstrate their service 
          * staff is of the parent type, but System.out.println(staff) actually calls the
          * toString() of the subclass. provideService() behaves the same way, because Java
@@ -76,21 +74,21 @@ public class AssignmentOne {
             System.out.println(" ");
         }
 
-        /**
+        /*
          *  3. Create the appointment manager 
          * It is the only data store in the program: every insert, search, sort and delete
          * below goes through this object. 
          */
         AppointmentManager manager = new AppointmentManager();
 
-        /**
+        /*
          * 4. Create the keyboard input object
          * The Scanner is created once and then passed to every method, so all input 
          * readings share the same input stream. 
          */
         Scanner input = new Scanner(System.in);
 
-        /**
+        /*
          * 5. Main menu loop
          * while (true) repeats until option 7 calls return and leaves main. 
          */
@@ -189,7 +187,7 @@ public class AssignmentOne {
                 System.out.println("Please select cancellation method:\n" + //
                                         "1. Cancel by patient phone and appointment time\n" + //
                                         "2. Cancel by medical staff ID and appointment time");
-                System.out.println("Pealse enter your choice: ");
+                System.out.println("Please enter your choice: ");
                 int cancelChoice;
                 if (input.hasNextInt()){
                     cancelChoice = input.nextInt();
@@ -330,7 +328,7 @@ public class AssignmentOne {
             
             }                   
             
-            /** 
+            /*
              * Add the appointment and check whether the booking can succeed.
              * This block only packs the data; whether the booking is allowed is decided by manager.addAppointment.
             */

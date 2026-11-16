@@ -1,11 +1,11 @@
+import java.time.LocalDateTime;
+
 /**
  * @author Yifan Liu
  * number: 25259081
  * This is the appointment record class.
  * It stores four pieces of information: the patient's name, the patient's mobile phone number, the appointment time, and the medical staff.
  */
-import java.time.LocalDateTime;
-
 public class Appointment{
     private String patientName;
     private String patientPhone;

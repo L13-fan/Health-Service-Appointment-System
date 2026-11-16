@@ -146,9 +146,6 @@ public class AppointmentManager {
      * instead of the internal list.
      * The search functions pass their result list here, so only the result set is sorted and
      * the order of the complete appointment list is left untouched.
-     * The loop variable names differ from the version above, but the algorithm and the result
-     * are exactly the same.
-     *
      * @param targetAppointments the list that should be sorted by appointment time
      */
     public void sortAppointmentsByTime(ArrayList<Appointment> targetAppointments){
