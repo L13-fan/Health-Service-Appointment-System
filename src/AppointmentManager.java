@@ -124,6 +124,10 @@ public class AppointmentManager {
     }
 
     public void displayAppointments(){
+        if (appointments.isEmpty()){
+            System.out.println("No appointments found.");
+            return;
+        }
         for (Appointment appointment : appointments){
             System.out.println(appointment);
             System.out.println(" ");
@@ -132,6 +136,7 @@ public class AppointmentManager {
 
     // 传入工作人员对象和要预约的时间，他从预约里有的找
     public boolean isTimeBooked(MedicalStaff medicalStaff, LocalDateTime bookTime){
+        
         for (Appointment appointment : appointments){
             if ((appointment.getAppointmentTime().equals(bookTime)) && (medicalStaff.getStaffId()== appointment.getMedicalStaff().getStaffId())){
                 return true;

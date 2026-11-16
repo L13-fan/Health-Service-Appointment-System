@@ -14,6 +14,10 @@ public class Appointment {
 
     /**
      * Create an appointment record and initialize the patient's name, patient's mobile phone number, appointment time, and the medical staff object.
+     * Verify the patient name and ensure that the patient name is not empty or null. Throw IllegalArgumentException if any argument is invalid.
+     * Verify the patient phone and ensure that the patient phone is not empty or null. Throw IllegalArgumentException if any argument is invalid.
+     * Verify the appoinment time and ensure that the appointment time is not null. Throw IllegalArgumentException if any argument is invalid.
+     * Verify the medical staff and ensure that the medical staff is not null. Throw IllegalArgumentException if any argument is invalid.
      * @param patientName This is the patient's name.
      * @param patientPhone The patient's mobile phone number.
      * @param appointmentTime The time of the patient's appointment.
@@ -21,6 +25,18 @@ public class Appointment {
      */
     public Appointment(String patientName, String patientPhone, LocalDateTime appointmentTime,
         MedicalStaff medicalStaff){
+        if (patientName == null || patientName.isEmpty()){
+            throw new IllegalArgumentException("Patient name cannot be empty.");
+        }
+        if (patientPhone == null || patientPhone.isEmpty()){
+            throw new IllegalArgumentException("Patient phone cannot be empty.");
+        }
+        if (appointmentTime == null){
+            throw new IllegalArgumentException("Appointment time cannot be null.");
+        }
+        if (medicalStaff == null){
+            throw new IllegalArgumentException("Medical staff cannot be null.");
+        }
         this.patientName = patientName;
         this.patientPhone = patientPhone;
         this.appointmentTime = appointmentTime;
