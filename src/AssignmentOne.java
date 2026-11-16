@@ -180,6 +180,15 @@ public class AssignmentOne {
             String patientName = input.nextLine();
             System.out.print("\nEnter patient phone: ");
             String patientPhone = input.nextLine();
+            
+            while (true){
+                if (patientPhone.length() != 11){
+                    System.out.println("手机号必须位11位，请重新输入手机号");
+                    patientPhone = input.nextLine();
+                } else {
+                    break;
+                }
+            }
 
             // 让患者选择工作人员
             System.out.println("\nSelect a medical staff by entering their ID: ");
