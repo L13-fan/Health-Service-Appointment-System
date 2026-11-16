@@ -32,7 +32,25 @@ public class AssignmentOne {
 
         Scanner input = new Scanner(System.in);
 
-        while(true){
+        // 调用bookAppointment方法
+        while (true){
+            bookAppointment(staffs, manager, input);
+
+            // 消耗换行符
+            input.nextLine();
+
+            // 让患者输入Y/N决定要不要结束预约
+            System.out.println("\nHas the reservation been completed? ");
+            System.out.println("Yes, please enter \"Y\" to end the reservation. No, please enter \"N\" to continue with the reservation.");
+            String end = input.nextLine();
+            if (end.equalsIgnoreCase("Y")){
+                break;
+            }
+        }
+    }
+        
+
+    public static void bookAppointment(MedicalStaff[] staffs, AppointmentManager manager, Scanner input){
             // 让患者自己输入信息
             System.out.print("\nEnter patient name: ");
             String patientName = input.nextLine();
@@ -58,6 +76,11 @@ public class AssignmentOne {
                 return;
             }
             // 输入预约时间
+            System.out.println("Appointment booking rules:\n" + //
+                                "- Appointments are available for the current day only.\n" + //
+                                "- Available time slots are from 08:00 to 16:00, at 30-minute intervals.\n" + //
+                                "- You can only book on the selected medical staff's working days.\n" + //
+                                "- The selected time must be in the future.");
             System.out.print("Enter appointment time (yyyy-MM-ddTHH:mm): ");
             String timeInput = input.next();
             LocalDateTime appointmentTime = LocalDateTime.parse(timeInput);
@@ -71,18 +94,7 @@ public class AssignmentOne {
             }
             System.out.println("\nCurrent appointments: ");
             manager.displayAppointments();
-            
-            // 消耗换行符
-            input.nextLine();
 
-            // 让患者输入Y/N决定要不要结束预约
-            System.out.println("\nHas the reservation been completed? ");
-            System.out.println("Yes, please enter \"Y\" to end the reservation. No, please enter \"N\" to continue with the reservation.");
-            String end = input.nextLine();
-            if (end.equalsIgnoreCase("Y")){
-                break;
-            }
-        }
-
+    
     }
 }
