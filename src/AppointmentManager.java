@@ -6,6 +6,9 @@ public class AppointmentManager {
     private ArrayList<Appointment> appointments = new ArrayList<>();
 
     public boolean addAppointment(Appointment appointment){
+        if (appointment == null){
+            throw new IllegalArgumentException("Appointment cannot be null.");
+        }
         if (isValidAppointmentTime(appointment.getAppointmentTime())){
             if (isWorkingDay(appointment)){
                 if (hasConflict(appointment)){
@@ -75,6 +78,15 @@ public class AppointmentManager {
         return false;
     }
     
+    public boolean cancelAppointment(int staffId, LocalDateTime targetTime){
+        for (int i = 0; i < appointments.size(); i++){
+            if ((appointments.get(i).getMedicalStaff().getStaffId() == staffId) && (appointments.get(i).getAppointmentTime().equals(targetTime))){
+                appointments.remove(i);
+                return true;
+            }
+        }
+        return false;
+    }
     public boolean hasConflict(Appointment newAppointment){
         for (Appointment appointment : appointments){
             if (newAppointment.getMedicalStaff().getStaffId() == appointment.getMedicalStaff().getStaffId()
